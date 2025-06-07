@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malindo Group Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #f5f7fa;
+      padding: 2rem 1rem;
+      height: 100vh;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    }
+    .sidebar h2 {
+      font-size: 1.5rem;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .sidebar nav a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+    }
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      background-color: #d6e9f9;
+      color: #2c3e50;
+    }
+    .sidebar nav img {
+      width: 20px;
+    }
+    .main {
+      flex: 1;
+      padding: 2rem;
+      background-color: #fff;
+    }
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .calendar, .full-calendar {
+      margin-top: 2rem;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 8px;
+      background: white;
+    }
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .calendar-header button {
+      padding: 0.3rem 0.6rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .calendar-header h2 {
+      margin: 0;
+    }
+    .calendar table, .full-calendar table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+    .calendar th, .calendar td, .full-calendar th, .full-calendar td {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+    }
+    .today {
+      background-color: #3498db;
+      color: white;
+      border-radius: 50%;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <h2><img src="gambar/LGO MALINDO.jpg" alt="Icon" style="width: 24px;" /> Malindo Group</h2>
+    <nav>
+      <a href="home.html" id="dashboardMenu"><img src="gambar/home.svg" alt="Dashboard" />Dashboard</a>
+      <a href="#"><img src="gambar/store.svg" alt="Store" />Store</a>
+      <a href="#"><img src="gambar/catalog.svg" alt="Catalog" />Catalog</a>
+      <a href="calender.html" id="calendarMenu"><img src="gambar/calender.svg" alt="Calendar" />Calendar</a>
+      <a href="#"><img src="gambar/help.svg" alt="Help" />Help</a>
+      <a href="index.html"><img src="gambar/logout.svg" alt="Logout" />Logout</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <h1 id="greeting" style="margin-bottom: 1rem;"></h1>
+
+    <!-- Kalender Kecil -->
+    <div class="calendar" id="calendar">
+      <div class="calendar-header">
+        <button onclick="changeMonthSmall(-1)">←</button>
+        <h2 id="monthYear"></h2>
+        <button onclick="changeMonthSmall(1)">→</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
+          </tr>
+        </thead>
+        <tbody id="calendarBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Kalender Penuh -->
+    <div class="full-calendar" id="fullCalendar" style="display: none;">
+      <div class="calendar-header">
+        <button onclick="changeYear(-1)">«</button>
+        <button onclick="changeMonth(-1)">←</button>
+        <h2 id="monthYearFull"></h2>
+        <button onclick="changeMonth(1)">→</button>
+        <button onclick="changeYear(1)">»</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
+          </tr>
+        </thead>
+        <tbody id="calendarFullBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    // Greeting logic
+    const userName = "Malindo Group";
+    const now = new Date();
+    const hours = now.getHours();
+    let greeting = "Hello";
+    if (hours < 12) greeting = "Good Morning";
+    else if (hours < 18) greeting = "Good Afternoon";
+    else greeting = "Good Evening";
+    document.getElementById("greeting").textContent = `${greeting} ${userName}!`;
+
+    // Small calendar
+    let currentSmall = new Date();
+    const renderCalendar = (date) => {
+      const calendarBody = document.getElementById("calendarBody");
+      const monthYear = document.getElementById("monthYear");
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const today = new Date();
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const lastDate = new Date(year, month + 1, 0).getDate();
+
+      monthYear.textContent = date.toLocaleString("default", { month: "long", year: "numeric" });
+
+      let html = "<tr>";
+      for (let i = 0; i < firstDay; i++) html += "<td></td>";
+
+      for (let d = 1; d <= lastDate; d++) {
+        if ((firstDay + d - 1) % 7 === 0 && d !== 1) html += "</tr><tr>";
+        const isToday = d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+        html += `<td>${isToday ? `<span class="today">${d}</span>` : d}</td>`;
+      }
+      html += "</tr>";
+      calendarBody.innerHTML = html;
+    };
+    function changeMonthSmall(offset) {
+      currentSmall.setMonth(currentSmall.getMonth() + offset);
+      renderCalendar(currentSmall);
+    }
+    renderCalendar(currentSmall);
+
+    // Full calendar
+    let current = new Date();
+    function renderFullCalendar(date) {
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const today = new Date();
+
+      document.getElementById("monthYearFull").textContent = date.toLocaleString("default", { month: "long", year: "numeric" });
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      let html = "<tr>";
+      for (let i = 0; i < firstDay; i++) html += "<td></td>";
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        if ((firstDay + day - 1) % 7 === 0 && day !== 1) html += "</tr><tr>";
+        const isToday = day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+        html += `<td>${isToday ? `<span class="today">${day}</span>` : day}</td>`;
+      }
+      html += "</tr>";
+      document.getElementById("calendarFullBody").innerHTML = html;
+    }
+    function changeMonth(offset) {
+      current.setMonth(current.getMonth() + offset);
+      renderFullCalendar(current);
+    }
+    function changeYear(offset) {
+      current.setFullYear(current.getFullYear() + offset);
+      renderFullCalendar(current);
+    }
+
+    // Menu logic: set active class dynamically
+    function setActiveMenu(targetId) {
+      document.querySelectorAll(".sidebar nav a").forEach(link => {
+        link.classList.remove("active");
+      });
+      const activeLink = document.getElementById(targetId);
+      if (activeLink) activeLink.classList.add("active");
+    }
+
+    // Handle calendar menu click
+    document.getElementById("calendarMenu").addEventListener("click", (e) => {
+      e.preventDefault();
+      document.querySelector(".calendar").style.display = "none";
+      document.getElementById("fullCalendar").style.display = "block";
+      renderFullCalendar(current);
+      setActiveMenu("calendarMenu");
+    });
+  </script>
+</body>
+</html>

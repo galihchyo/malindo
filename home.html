@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malindo Group Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+   body {
+      display: flex;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #f5f7fa;
+      padding: 2rem 1rem;
+      height: 100vh;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    }
+    .sidebar h2 {
+      font-size: 1.5rem;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .sidebar nav a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+    }
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      background-color: #d6e9f9;
+      color: #2c3e50;
+    }
+    .sidebar nav img {
+      width: 20px;
+    }
+    .main {
+      flex: 1;
+      padding: 2rem;
+      background-color: #fff;
+    }
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .search-bar {
+      margin-bottom: 1rem;
+    }
+    .search-bar input {
+      padding: 0.5rem 1rem;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .release-list table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .release-list th, .release-list td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+    .status {
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: white;
+    }
+    .status.in-process { background-color: #3498db; }
+    .status.live { background-color: #2ecc71; }
+    .status.draft { background-color: #f39c12; }
+    .new-release-btn {
+      background-color: #3498db;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <h2><img src="gambar/LGO MALINDO.jpg" alt="Icon" style="width: 24px;" /> Malindo Group</h2>
+    <nav>
+      <a href="home.html" id="dashboardMenu"><img src="gambar/home.svg" alt="Dashboard" />Dashboard</a>
+      <a href="#"><img src="gambar/store.svg" alt="Store" />Store</a>
+      <a href="#"><img src="gambar/catalog.svg" alt="Catalog" />Catalog</a>
+      <a href="calender.html" id="calendarMenu"><img src="gambar/calender.svg" alt="Calendar" />Calendar</a>
+      <a href="#"><img src="gambar/help.svg" alt="Help" />Help</a>
+      <a href="index.html"><img src="gambar/logout.svg" alt="Logout" />Logout</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="dashboard-header">
+      <h1 id="greeting"></h1>
+      <button class="new-release-btn">+ New Release</button>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Search..." />
+    </div>
+
+    <div class="release-list">
+      <table>
+        <thead>
+          <tr>
+            <th>Art Track</th>
+            <th>Album Detail</th>
+            <th>Release Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><img src="gambar/sample1.jpg" alt="Track" style="width: 50px;" /></td>
+            <td>Emang Enak Susu Tobrut<br><small>Syla Fvnky Rmx<br>Label: FM Media.Idp</small></td>
+            <td>2025-06-07</td>
+            <td><span class="status in-process">IN PROCESS</span></td>
+          </tr>
+          <tr>
+            <td><img src="gambar/sample2.jpg" alt="Track" style="width: 50px;" /></td>
+            <td>Menunggu Jawaban (Remix)<br><small>Batu Fvnky<br>Label: RB Music.Ltd</small></td>
+            <td>2025-06-07</td>
+            <td><span class="status in-process">IN PROCESS</span></td>
+          </tr>
+          <tr>
+            <td><img src="gambar/sample3.jpg" alt="Track" style="width: 50px;" /></td>
+            <td>CLBK<br><small>GaLih YT<br>Label: Malindo Music Limited</small></td>
+            <td>2025-06-07</td>
+            <td><span class="status in-process">IN PROCESS</span></td>
+          </tr>
+          <tr>
+            <td><img src="gambar/sample4.jpg" alt="Track" style="width: 50px;" /></td>
+            <td>From The Fallen I Rise<br><small>$adrinasss<br>Label: MEGABAYZ Enterprises</small></td>
+            <td>2025-06-07</td>
+            <td><span class="status draft">DRAFT</span></td>
+          </tr>
+          <tr>
+            <td><img src="gambar/sample5.jpg" alt="Track" style="width: 50px;" /></td>
+            <td>Parasad (Pacar Rasa Sodara) Remix<br><small>Ichad Bless<br>Label: MEGABAYZ Enterprises</small></td>
+            <td>2025-06-05</td>
+            <td><span class="status live">LIVE</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+      const userName = "Malindo Group";
+    const now = new Date();
+    const hours = now.getHours();
+
+    let greeting = "Hello";
+    if (hours < 12) {
+      greeting = "Good Morning";
+    } else if (hours < 18) {
+      greeting = "Good Afternoon";
+    } else {
+      greeting = "Good Evening";
+    }
+
+    document.getElementById("greeting").textContent = `${greeting} ${userName}!`;
+  </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #f9fbfc;
+  color: #1f1f1f;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 16px 32px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #000;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1f1f1f;
+  font-weight: 500;
+  margin-right: 16px;
+}
+
+.user-icon {
+  font-size: 20px;
+}
+
+.dashboard {
+  max-width: 960px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.greeting {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.tools {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+
+.tool-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1f1f1f;
+  border: 1px solid #ddd;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background: #fff;
+  transition: 0.2s ease;
+}
+
+.tool-link:hover {
+  background-color: #f0f0f0;
+}
+
+.footer {
+  text-align: center;
+  padding: 24px 0;
+  color: #666;
+  font-size: 0.9rem;
+  border-top: 1px solid #eee;
+  margin-top: 60px;
+}
+
+.animate-on-load {
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
